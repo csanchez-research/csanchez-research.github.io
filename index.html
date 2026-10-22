@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Christian Sanchez-Leon</title>
+<meta name="description" content="Christian Sanchez-Leon, PhD student at Northeastern University (Shenyang). Self-supervised learning for Earth observation with Sentinel-1 SAR and Sentinel-2 optical data.">
+<meta property="og:title" content="Christian Sanchez-Leon">
+<meta property="og:description" content="Self-supervised learning for Earth observation with Sentinel-1 SAR and Sentinel-2 optical data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F7F8F6;
+    --ink: #1C2530;
+    --muted: #5B6672;
+    --rule: #D9DED9;
+    --radar: #2D5F78;   /* Sentinel-1 */
+    --optical: #6B8A3E; /* Sentinel-2 */
+    --link: #2D5F78;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #151B21;
+      --ink: #E4E8EA;
+      --muted: #9AA5AE;
+      --rule: #2C353D;
+      --radar: #7FB0C8;
+      --optical: #A3C072;
+      --link: #8DBBD2;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #151B21; --ink: #E4E8EA; --muted: #9AA5AE; --rule: #2C353D;
+    --radar: #7FB0C8; --optical: #A3C072; --link: #8DBBD2;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+  }
+  .page {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: 4.5rem 16px 4rem;
+  }
+
+  /* Header */
+  header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: end;
+    padding-bottom: 2.25rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  h1 {
+    margin: 0;
+    font-weight: 600;
+    font-size: clamp(2rem, 6vw, 2.75rem);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .role {
+    margin: 0.75rem 0 0;
+    color: var(--muted);
+    font-size: 1.0625rem;
+  }
+  .links {
+    margin: 1.25rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 1.25rem;
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 0.9375rem;
+  }
+
+  /* The one visual element: 192 cells, one per stratum */
+  .strata { width: 168px; height: auto; display: block; }
+  .strata rect { rx: 1.2; }
+  .strata .s1 { fill: var(--radar); }
+  .strata .s2 { fill: var(--optical); }
+  .strata-caption {
+    margin: 0.5rem 0 0;
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 0.75rem;
+    color: var(--muted);
+    max-width: 168px;
+    line-height: 1.4;
+  }
+
+  /* Sections */
+  section { margin-top: 2.75rem; }
+  h2 {
+    margin: 0 0 1rem;
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 1.0625rem;
+    color: var(--ink);
+  }
+  p { margin: 0 0 1rem; }
+
+  a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+  a:hover { text-decoration-thickness: 2px; }
+  a:focus-visible { outline: 2px solid var(--radar); outline-offset: 2px; border-radius: 2px; }
+
+  .entry { margin: 0 0 1.5rem; }
+  .entry-title { margin: 0; font-weight: 600; }
+  .entry-meta { margin: 0.2rem 0 0; color: var(--muted); }
+  .entry-meta strong { color: var(--ink); font-weight: 600; }
+  .entry-links {
+    margin: 0.4rem 0 0;
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 0.875rem;
+    display: flex; flex-wrap: wrap; gap: 0.25rem 1rem;
+  }
+
+  dl { margin: 0; }
+  .item { padding: 0.9rem 0; border-top: 1px solid var(--rule); }
+  .item:last-child { border-bottom: 1px solid var(--rule); }
+  dt { font-weight: 600; }
+  dd { margin: 0.15rem 0 0; color: var(--muted); }
+  dd a { font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 0.875rem; }
+
+  footer {
+    margin-top: 3.5rem;
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+
+  @media (max-width: 560px) {
+    .page { padding-top: 3rem; }
+    header { grid-template-columns: 1fr; gap: 1.5rem; }
+    .strata { width: 144px; }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+
+  <header>
+    <div>
+      <h1>Christian Sanchez-Leon</h1>
+      <p class="role">PhD student, Northeastern University, Shenyang</p>
+      <ul class="links">
+        <li><a href="mailto:christian.sanchez.research@tutamail.com">Email</a></li>
+        <li><a href="https://orcid.org/0009-0005-0994-9946">ORCID</a></li>
+        <li><a href="https://scholar.google.com/citations?user=jBMbRsQAAAAJ&amp;hl=en">Google Scholar</a></li>
+        <li><a href="https://github.com/csanchez-research">GitHub</a></li>
+        <li><a href="https://huggingface.co/chsanleo">Hugging Face</a></li>
+      </ul>
+    </div>
+    <figure style="margin:0">
+      <svg class="strata" id="strata" viewBox="0 0 168 126" role="img"
+           aria-label="A grid of 192 cells, one for each sampling stratum in STRATA-S12"></svg>
+      <figcaption class="strata-caption">192 strata, all covered in STRATA-S12</figcaption>
+    </figure>
+  </header>
+
+  <section aria-labelledby="research">
+    <h2 id="research">Research</h2>
+    <p>
+      I work on self-supervised learning for Earth observation using paired
+      Sentinel-1 SAR and Sentinel-2 optical imagery. A large part of my work is
+      on the data side: how to build open pretraining corpora whose geographic
+      and land-cover coverage is controlled by design rather than inherited from
+      whatever imagery is easiest to download.
+    </p>
+    <p>
+      Before the PhD I worked as a software engineer, and I try to bring the same
+      habits to research: pinned versions, checksums for every artifact, and
+      pipelines that fail loudly instead of producing quiet nonsense.
+    </p>
+  </section>
+
+  <section aria-labelledby="publications">
+    <h2 id="publications">Publications</h2>
+
+    <article class="entry">
+      <p class="entry-title">
+        Deficit-Driven Stratified Acquisition for Building STRATA-S12: An Open
+        SAR&ndash;Optical Corpus for Self-Supervised Learning
+      </p>
+      <p class="entry-meta">
+        <strong>Christian Sanchez-Leon</strong>, Dongming Chen, Dongqi Wang.
+        Preprint, 2026.
+      </p>
+      <p class="entry-links">
+        <a href="https://arxiv.org/abs/2610.17680">arXiv:2610.17680</a>
+        <a href="https://huggingface.co/datasets/chsanleo/strata-s12">Dataset</a>
+        <a href="https://github.com/csanchez-research/strata-s12-eval-harness">Code</a>
+      </p>
+    </article>
+  </section>
+
+  <section aria-labelledby="data">
+    <h2 id="data">Data and code</h2>
+    <dl>
+      <div class="item">
+        <dt>STRATA-S12</dt>
+        <dd>
+          740,746 co-registered Sentinel-1 / Sentinel-2 pairs over six continents,
+          sampled across 192 strata. CC BY 4.0.<br>
+          <a href="https://huggingface.co/datasets/chsanleo/strata-s12">Shards on Hugging Face</a>
+        </dd>
+      </div>
+      <div class="item">
+        <dt>STRATA-S12 corpus (D) and acquisition ledgers</dt>
+        <dd>
+          Citable record of the full corpus (about 2.7 TB, data hosted on Hugging Face),
+          with the public records of rejected and withdrawn pairs.<br>
+          <a href="https://doi.org/10.5281/zenodo.22699046">doi:10.5281/zenodo.22699046</a>
+        </dd>
+      </div>
+      <div class="item">
+        <dt>STRATA-S12 Lite (D_lite)</dt>
+        <dd>
+          A compact, class-balanced subset of 20,916 pairs, for working with the
+          data directly without downloading the full multi-terabyte corpus.<br>
+          <a href="https://doi.org/10.5281/zenodo.22646276">doi:10.5281/zenodo.22646276</a>
+        </dd>
+      </div>
+      <div class="item">
+        <dt>strata-s12-eval-harness</dt>
+        <dd>
+          Linear-probe evaluation of pretrained encoders on reBEN (BigEarthNet v2.0).<br>
+          <a href="https://github.com/csanchez-research/strata-s12-eval-harness">GitHub</a>
+          &nbsp;
+          <a href="https://doi.org/10.5281/zenodo.22892250">doi:10.5281/zenodo.22892250</a>
+        </dd>
+      </div>
+    </dl>
+  </section>
+
+</main>
+
+<script>
+  // Draws the 16 x 12 grid (192 cells). Columns alternate between the
+  // radar and optical tones as a quiet nod to the paired data.
+  (function () {
+    var svg = document.getElementById("strata");
+    if (!svg) return;
+    var ns = "http://www.w3.org/2000/svg";
+    var cols = 16, rows = 12, size = 8.5, gap = 2;
+    for (var r = 0; r < rows; r++) {
+      for (var c = 0; c < cols; c++) {
+        var rect = document.createElementNS(ns, "rect");
+        rect.setAttribute("x", c * (size + gap));
+        rect.setAttribute("y", r * (size + gap));
+        rect.setAttribute("width", size);
+        rect.setAttribute("height", size);
+        rect.setAttribute("class", c < cols / 2 ? "s1" : "s2");
+        rect.setAttribute("opacity", (0.55 + 0.45 * ((r * 7 + c * 3) % 5) / 4).toFixed(2));
+        svg.appendChild(rect);
+      }
+    }
+  })();
+</script>
+</body>
+</html>
