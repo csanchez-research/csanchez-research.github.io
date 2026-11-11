@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AoE clock</title>
+<style>
+  html, body { margin: 0; height: 100%; background: transparent; }
+  body {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: #e8e8e8;
+  }
+  .t { font-size: 13px; color: #a0a0a0; margin-bottom: 4px; }
+  .h { font-size: 32px; font-weight: 500; font-variant-numeric: tabular-nums; }
+  .d { font-size: 14px; color: #c8c8c8; margin-top: 4px; }
+</style>
+</head>
+<body>
+  <div class="t">AoE (UTC−12)</div>
+  <div class="h" id="h">--:--</div>
+  <div class="d" id="d"></div>
+<script>
+  // AoE = UTC-12, no daylight saving. Computed from the device's UTC clock.
+  const days = ["domingo","lunes","martes","miércoles","jueves","viernes","sábado"];
+  const months = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+  const pad = n => String(n).padStart(2, "0");
+  function tick() {
+    const aoe = new Date(Date.now() - 12 * 3600 * 1000);
+    document.getElementById("h").textContent = pad(aoe.getUTCHours()) + ":" + pad(aoe.getUTCMinutes());
+    document.getElementById("d").textContent =
+      days[aoe.getUTCDay()] + ", " + months[aoe.getUTCMonth()] + " " + aoe.getUTCDate();
+  }
+  tick();
+  setInterval(tick, 1000);
+</script>
+</body>
+</html>
